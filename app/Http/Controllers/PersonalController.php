@@ -15,7 +15,8 @@ class PersonalController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        /*Para que llame al guardia respectivo*/
+        $this->middleware('auth:personalguard');
     }
 
     /**

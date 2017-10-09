@@ -19,4 +19,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/personal', 'PersonalController@index');
+
+Route::prefix('personal')->group(function(){
+	Route::get('/login','Auth\PersonalLoginController@showLoginForm')->name('personal.login');
+	Route::post('/login','Auth\PersonalLoginController@login')->name('personal.login.submit');
+	Route::get('/', 'PersonalController@index')->name('personal.dashboard');
+});
+
