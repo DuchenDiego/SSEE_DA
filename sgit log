@@ -1,0 +1,41 @@
+[33mcommit 2ac2937f58e257cc1391e834fb5ae019ad5d6b3d[m[33m ([m[1;36mHEAD -> [m[1;32mtesteo_error_routelist[m[33m)[m
+Author: Diego <brad.duchen@gmail.com>
+Date:   Mon Oct 9 01:19:21 2017 -0400
+
+    Registro users Agregado
+
+[33mcommit 0adbba29933b83f61c6bf94b49fc7822aea4c298[m
+Author: Diego <brad.duchen@gmail.com>
+Date:   Mon Oct 9 00:10:17 2017 -0400
+
+    Punto de error
+
+[33mcommit ce35d3d671977a2859e5e3d0c8cea6afb9527b52[m
+Author: Diego <brad.duchen@gmail.com>
+Date:   Sun Oct 8 21:21:19 2017 -0400
+
+    agregar vistas auth
+
+[33mcommit 7271e48a66acd37237ae3a5736e1e37a96606af5[m
+Author: Diego <brad.duchen@gmail.com>
+Date:   Sun Oct 8 20:25:49 2017 -0400
+
+    test 1:añadir PersonalController,Auth
+
+[33mcommit 87449f16d800135a36cb185af0541be613b8b362[m
+Author: Diego <brad.duchen@gmail.com>
+Date:   Sun Oct 8 17:33:30 2017 -0400
+
+    refresh de migraciones y creados modelos
+
+[33mcommit d2c35afa7066ec8094ada020308213683a610e8b[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Diego <brad.duchen@gmail.com>
+Date:   Sun Oct 8 17:14:23 2017 -0400
+
+    añadido middleware de autenticación
+
+[33mcommit a2c6ac9a87ba501594c617b39c23f8f9b958672c[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Diego <brad.duchen@gmail.com>
+Date:   Thu Oct 5 23:56:04 2017 -0400
+
+    Inicio de Proyecto, migraciones añadidas

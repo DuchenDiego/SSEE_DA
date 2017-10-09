@@ -4,9 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+/*Para login personalizado se debe llamar a Request:*/
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+
+    
+
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -38,5 +44,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    /*Codigo extra para login*/
+    /*Codigo extra para login custom, sobreescritura de metodos*/
+    public function username()
+    {
+        return 'idcredencial';
+    }
+    protected function credentials(Request $request)
+    {
+        $usernameInput = trim($request->{$this->username()});
+        $usernameColumn = filter_var($usernameInput, FILTER_VALIDATE_EMAIL) ? 'email' : $this->username();
+
+        return [$usernameColumn => $usernameInput, 'password' => $request->password];
+    }
 }
