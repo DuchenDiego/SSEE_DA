@@ -13,6 +13,8 @@ return [
     |
     */
 
+    
+
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
@@ -34,7 +36,7 @@ return [
     | Supported: "session", "token"
     |
     */
-
+    /*guards son los que se encargan de abrir y mantener sesiones, para web utiliza sesiones y para api utiliza tokens*/
     'guards' => [
         'web' => [
             'driver' => 'session',
@@ -45,6 +47,11 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+        'personalguard' => [
+            'driver' => 'session',
+            'provider' => 'personalprov',
+        ],
+
     ],
 
     /*
@@ -63,7 +70,7 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
+    /*providers se encargan de como hablar con la base de datos, ej: se puede usar eloquent como driver y especificar el modelo o se puede usar la base de datos y la tabla de la q se autenticará*/
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
@@ -74,6 +81,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'personalprov' => [
+                'driver' => 'eloquent',
+                'model' => App\Personal::class,
+            ],
     ],
 
     /*
@@ -96,6 +108,11 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
+        ],
+        'personalpass' => [
+            'provider' => 'personalprov',
+            'table' => 'password_resets',
+            'expire' => 15,
         ],
     ],
 
