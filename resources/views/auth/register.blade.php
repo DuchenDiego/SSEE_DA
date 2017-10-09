@@ -25,6 +25,88 @@
                             </div>
                         </div>
 
+                         <div class="form-group{{ $errors->has('appaterno') ? ' has-error' : '' }}">
+                            <label for="appaterno" class="col-md-4 control-label">Apellido Paterno</label>
+
+                            <div class="col-md-6">
+                                <input id="appaterno" type="text" class="form-control" name="appaterno" value="{{ old('appaterno') }}" required autofocus>
+
+                                @if ($errors->has('appaterno'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('appaterno') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                         <div class="form-group{{ $errors->has('apmaterno') ? ' has-error' : '' }}">
+                            <label for="apmaterno" class="col-md-4 control-label">Apellido Materno</label>
+
+                            <div class="col-md-6">
+                                <input id="apmaterno" type="text" class="form-control" name="apmaterno" value="{{ old('apmaterno') }}" required autofocus>
+
+                                @if ($errors->has('apmaterno'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('apmaterno') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('carrera') ? ' has-error' : '' }}">
+                            <label for="carrera" class="col-md-4 control-label">Carrera</label>
+
+                            <div class="col-md-6">
+                                <input id="carrera" type="text" class="form-control" name="carrera" value="{{ old('carrera') }}" required autofocus>
+
+                                @if ($errors->has('carrera'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('carrera') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('semestre') ? ' has-error' : '' }}">
+                            <label for="semestre" class="col-md-4 control-label">Semestre</label>
+
+                            <div class="col-md-6">
+
+                                <select name="semestre" class="form-control">
+                                  <option value="1">1er</option>
+                                  <option value="2">2do</option>
+                                  <option value="3">3er</option>
+                                  <option value="4">4to</option>
+                                  <option value="5">5to</option>
+                                  <option value="6">6to</option>
+                                  <option value="7">7mo</option>
+                                  <option value="8">8vo</option>
+                                  <option value="9">9no</option>
+                                  <option value="10">10mo</option>
+                                </select>
+
+                                @if ($errors->has('semestre'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('semestre') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('fechanac') ? ' has-error' : '' }}">
+                            <label for="fechanac" class="col-md-4 control-label">Fecha de Nacimiento</label>
+
+                            <div class="col-md-6">
+                                <input id="fechanac" type="text" class="form-control" name="fechanac" value="{{ old('fechanac') }}" required>
+
+                                @if ($errors->has('fechanac'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('fechanac') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
                         <div class="form-group{{ $errors->has('idcredencial') ? ' has-error' : '' }}">
                             <label for="idcredencial" class="col-md-4 control-label">Cuenta Credencial</label>
 
