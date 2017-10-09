@@ -9,6 +9,9 @@ class Personal extends Authenticatable
 {
     use Notifiable;
 
+    //Se debe especificar el guarda con el que trabajará el modelo
+    protected $guard = 'personalguard';
+
     /**
      * The attributes that are mass assignable.
      *
