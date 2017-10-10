@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Middleware;
-
 use Closure;
 use Illuminate\Support\Facades\Auth;
-
 class RedirectIfAuthenticated
 {
     /**
@@ -17,10 +14,18 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
-        }
-
-        return $next($request);
+      switch ($guard) {
+        case 'personalguard':
+          if (Auth::guard($guard)->check()) {
+            return redirect()->route('personal.dashboard');
+          }
+          break;
+        case 'web':
+          if (Auth::guard($guard)->check()) {
+              return redirect('/home');
+          }
+          break;
+      }
+      return $next($request);
     }
 }

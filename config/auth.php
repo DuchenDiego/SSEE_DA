@@ -85,6 +85,7 @@ return [
         'personalprov' => [
                 'driver' => 'eloquent',
                 'model' => App\Personal::class,
+                //'table'=>'personal'
             ],
     ],
 
