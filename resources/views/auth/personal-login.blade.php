@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('opciones')
+<li><a href="{{ route('personal.login') }}">Login</a></li>
+@endsection
 @section('content')
 <div class="container">
     <div class="row">
