@@ -29,4 +29,9 @@ class Personal extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function diagnosticos(){
+        return $this->hasMany("App\Diagnostico","pers_id");
+    }
+    
 }
