@@ -17,6 +17,7 @@ class CreateSintomasTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->enum('estado',['si','no'])->default('no');
+            $table->enum('habilitado',['si','no'])->default('si');
             $table->integer('ele_id')->unsigned();
             $table->foreign('ele_id')->references('id')->on('elementos')->onDelete('cascade');
             $table->timestamps();

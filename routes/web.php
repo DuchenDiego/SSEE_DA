@@ -26,3 +26,7 @@ Route::prefix('personal')->group(function(){
 	Route::get('/', 'PersonalController@index')->name('personal.dashboard');
 });
 
+Route::prefix('estudiante')->group(function(){
+	Route::get('/pruebas','inicioController@pruebas')->name('estudiante.pruebas');
+	Route::get('/inicio','inicioController@inicializacion')->name('estudiante.inicio');
+});
