@@ -15,10 +15,15 @@ use Auth;
 
 class InicioController extends Controller
 {
-    public function pruebas(){
-    	dd(Auth::user()->idcredencial);
-
-    }
+	public function estudiante(){
+		$cred=Auth::user()->idcredencial;
+		$estudiante=User::where('idcredencial','=',$cred)->first();
+		return view("inicio/diagnostico")->with("estudiante",$estudiante);
+		
+	}
+	public function diagnostico(Request $request){
+		echo $request->estudiante;
+	}
     public function inicializacion(){
     	$cred=Auth::user()->idcredencial;
     	$estudiante=User::where('idcredencial','=',$cred)->first();
@@ -208,5 +213,6 @@ class InicioController extends Controller
     			array('name'=>"Evitacion_Social",'ele_id'=>$eleindtras->id)
     		));
     	}
+    	//return redirect()->route('estudiante.base');
     }
 }

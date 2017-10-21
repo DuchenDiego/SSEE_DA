@@ -26,7 +26,12 @@ Route::prefix('personal')->group(function(){
 	Route::get('/', 'PersonalController@index')->name('personal.dashboard');
 });
 
-Route::prefix('estudiante')->group(function(){
-	Route::get('/pruebas','inicioController@pruebas')->name('estudiante.pruebas');
-	Route::get('/inicio','inicioController@inicializacion')->name('estudiante.inicio');
+Route::prefix('inicio')->group(function(){
+	Route::get('/estudiante','inicioController@estudiante')->name('inicio.estudiante');
+	Route::post('/diagnostico','inicioController@diagnostico')->name('inicio.diagnostico');
+});
+
+Route::prefix('medicinas')->group(function(){
+	Route::get('/antiasmaticos/show','MedicinasController@antiasmaticos_show')->name('medicinas.antiasmaticos.show');
+	Route::put('/antiasmaticos/{id}','MedicinasController@antiasmaticos_update')->name('medicinas.antiasmaticos.update');
 });

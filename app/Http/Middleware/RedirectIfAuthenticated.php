@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
           break;
         case 'web':
           if (Auth::guard($guard)->check()) {
-              return redirect()->route('estudiante.pruebas');
+              return redirect()->route('inicio.estudiante');
           }
           break;
       }
