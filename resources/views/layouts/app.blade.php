@@ -11,9 +11,11 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg">
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -28,7 +30,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="#">                         
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -36,7 +38,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                       <img src="https://seeklogo.com/images/U/universidad-del-valle-bolivia-logo-801F396DF0-seeklogo.com.png" class="logo" >
                     </ul>
 
                     <!-- Right Side Of Navbar -->

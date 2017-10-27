@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <form action="{{ route('inicio.diagnostico') }}" method="POST" onload="">
+    <form action="{{ route('inicio.criterio') }}" method="POST" onload="">
    		<input type="hidden" name="_token" value="{{ csrf_token() }}">
    		<input type="hidden" name="estudiante" value="{{ $estudiante }}">
+      <input type="hidden" name="diagnostico" value="{{ $diagnostico }}">
    		<input type="submit" id="boton" style="display:none;">
     </form>
     <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
@@ -12,7 +13,7 @@
  			$('#boton').trigger('click');
 		});
     </script>
-      <div class="central">
+    <div class="central">
       <div class="container-fluid">
         <div class="main row">
           <article class="col-md-2"></article>

@@ -22,7 +22,7 @@ class CreateDiagnosticosTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('pers_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('pers_id')->references('id')->on('personal')->onDelete('cascade');
+            $table->foreign('pers_id')->references('id')->on('personals')->onDelete('cascade');
             $table->timestamps();
         });
     }
