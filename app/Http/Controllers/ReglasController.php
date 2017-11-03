@@ -49,13 +49,71 @@ class ReglasController extends Controller
         $idelesintgastro=$elesintgastro->id;//11 Sintomas Gastrointestinales
         $idelesintgenito=$elesintgenito->id;//12 Sintomas Genitourinarios
         $idelesintautono=$elesintautono->id;//13 Sintomas Autonomos
-        $ideleindtras=$eleindtras->id;//14 Indico Trastorno
+        $ideleindtras=$eleindtras->id;//14 Indicio Trastorno
         
 
         $arrelementos=array($idcriterio,$ideleansioso,$ideletension,$idelemiedos,$ideleinsomnio,$ideleintelectual,$idelehumordepresivo,$idelesomaticomusc,$idelesomaticosens,$idelesintcard,$idelesintres,$idelesintgastro,$idelesintgenito,$idelesintautono,$ideleindtras);
         return $arrelementos;
     }
     
+    public function sintomas(){
+        $preocupaciones=Sintoma::where('name','=','Preocupaciones')->where('ele_id','=',$this->elementos()[1])->first();//0
+        $anticipaciones=Sintoma::where('name','=','Anticipaciones_Temerosas')->where('ele_id','=',$this->elementos()[1])->first();//1
+        $irritabilidad=Sintoma::where('name','=','Irritabilidad')->where('ele_id','=',$this->elementos()[1])->first();//2
+        $tension=Sintoma::where('name','=','Sensacion_Tension')->where('ele_id','=',$this->elementos()[2])->first();//3
+        $fatiga=Sintoma::where('name','=','Fatiga')->where('ele_id','=',$this->elementos()[2])->first();//4
+        $inquietud=Sintoma::where('name','=','Inquietud')->where('ele_id','=',$this->elementos()[2])->first();//5
+        $temblor=Sintoma::where('name','=','Temblor')->where('ele_id','=',$this->elementos()[2])->first();//6
+        $mieoscuridad=Sintoma::where('name','=','Miedo_Oscuridad')->where('ele_id','=',$this->elementos()[3])->first();//7
+        $mieextraños=Sintoma::where('name','=','Miedo_Extraños')->where('ele_id','=',$this->elementos()[3])->first();//8
+        $miesoledad=Sintoma::where('name','=','Miedo_Soledad')->where('ele_id','=',$this->elementos()[3])->first();//9
+        $miemultitudes=Sintoma::where('name','=','Miedo_Multitudes')->where('ele_id','=',$this->elementos()[3])->first();//10
+        $difdormir=Sintoma::where('name','=','Dificultad_Dormir')->where('ele_id','=',$this->elementos()[4])->first();//11
+        $suefragmentado=Sintoma::where('name','=','Sueno_Fragmentado')->where('ele_id','=',$this->elementos()[4])->first();//12
+        $fatidespert=Sintoma::where('name','=','Fatiga_Despertar')->where('ele_id','=',$this->elementos()[4])->first();//13
+        $pesadi=Sintoma::where('name','=','Pesadillas')->where('ele_id','=',$this->elementos()[4])->first();//14
+        $difconc=Sintoma::where('name','=','Dificultad_Concentracion')->where('ele_id','=',$this->elementos()[5])->first();//15
+        $memred=Sintoma::where('name','=','Memoria_Reducida')->where('ele_id','=',$this->elementos()[5])->first();//16
+        $perdinteres=Sintoma::where('name','=','Perdida_Interes')->where('ele_id','=',$this->elementos()[6])->first();//17
+        $ausplacer=Sintoma::where('name','=','Ausencia_Placer_Aficiones')->where('ele_id','=',$this->elementos()[6])->first();//18
+        $conddepre=Sintoma::where('name','=','Conducta_Depresiva')->where('ele_id','=',$this->elementos()[6])->first();//19
+        $despantic=Sintoma::where('name','=','Despertar_Anticipado')->where('ele_id','=',$this->elementos()[6])->first();//20
+        $dolores=Sintoma::where('name','=','Dolores')->where('ele_id','=',$this->elementos()[7])->first();//21
+        $contracciones=Sintoma::where('name','=','Contracciones')->where('ele_id','=',$this->elementos()[7])->first();//22
+        $rigidez=Sintoma::where('name','=','Rigidez')->where('ele_id','=',$this->elementos()[7])->first();//23
+        $voztitub=Sintoma::where('name','=','Voz_Titubeante')->where('ele_id','=',$this->elementos()[7])->first();//24
+        $tinnitus=Sintoma::where('name','=','Tinnitus')->where('ele_id','=',$this->elementos()[8])->first();//25
+        $visionborr=Sintoma::where('name','=','Vision_Borrosa')->where('ele_id','=',$this->elementos()[8])->first();//26
+        $escalofrios=Sintoma::where('name','=','Escalofrios')->where('ele_id','=',$this->elementos()[8])->first();//27
+        $sensdeb=Sintoma::where('name','=','Sensacion_Debilidad')->where('ele_id','=',$this->elementos()[8])->first();//28
+        $taquicardia=Sintoma::where('name','=','Taquicardia')->where('ele_id','=',$this->elementos()[9])->first();//29
+        $palpitaciones=Sintoma::where('name','=','Palpitaciones')->where('ele_id','=',$this->elementos()[9])->first();//30
+        $pulsfuerte=Sintoma::where('name','=','Pulso_Fuerte')->where('ele_id','=',$this->elementos()[9])->first();//31
+        $auslatido=Sintoma::where('name','=','Ausencia_Latido')->where('ele_id','=',$this->elementos()[9])->first();//32
+        $presionpech=Sintoma::where('name','=','Presion_Pecho')->where('ele_id','=',$this->elementos()[10])->first();//33
+        $sensaho=Sintoma::where('name','=','Sensacion_Ahogo')->where('ele_id','=',$this->elementos()[10])->first();//34
+        $suspiros=Sintoma::where('name','=','Suspiros')->where('ele_id','=',$this->elementos()[10])->first();//35
+        $disnea=Sintoma::where('name','=','Disnea')->where('ele_id','=',$this->elementos()[10])->first();//36
+        $nauseas=Sintoma::where('name','=','Nauseas')->where('ele_id','=',$this->elementos()[11])->first();//37
+        $vomito=Sintoma::where('name','=','Vomito')->where('ele_id','=',$this->elementos()[11])->first();//38
+        $perdidapeso=Sintoma::where('name','=','Perdida_Peso')->where('ele_id','=',$this->elementos()[11])->first();//39
+        $estreñi=Sintoma::where('name','=','Estrenimiento')->where('ele_id','=',$this->elementos()[11])->first();//40
+        $perdidalib=Sintoma::where('name','=','Perdida_Libido')->where('ele_id','=',$this->elementos()[12])->first();//41
+        $frecuenciamic=Sintoma::where('name','=','Frecuencia_Miccional')->where('ele_id','=',$this->elementos()[12])->first();//42
+        $impotencia=Sintoma::where('name','=','Impotencia')->where('ele_id','=',$this->elementos()[12])->first();//43
+        $urgmic=Sintoma::where('name','=','Urgencia_Miccional')->where('ele_id','=',$this->elementos()[12])->first();//44
+        $sofocos=Sintoma::where('name','=','Sofocos')->where('ele_id','=',$this->elementos()[13])->first();//45
+        $tendenciasu=Sintoma::where('name','=','Tendencia_Sudor')->where('ele_id','=',$this->elementos()[13])->first();//46
+        $mareos=Sintoma::where('name','=','Mareos')->where('ele_id','=',$this->elementos()[13])->first();//47
+        $cefatens=Sintoma::where('name','=','Cefalea_Tensional')->where('ele_id','=',$this->elementos()[13])->first();//48
+        $preocupexe=Sintoma::where('name','=','Preocupacion_Excesiva_pTodo')->where('ele_id','=',$this->elementos()[14])->first();//49
+        $ataquesans=Sintoma::where('name','=','Ataques_Ansiosos_Subitos')->where('ele_id','=',$this->elementos()[14])->first();//50
+        $obscompul=Sintoma::where('name','=','Obsesiones_o_Compulsiones')->where('ele_id','=',$this->elementos()[14])->first();//51
+        $evitasocial=Sintoma::where('name','=','Evitacion_Social')->where('ele_id','=',$this->elementos()[14])->first();//52
+        
+        $arrsintomas=array($preocupaciones,$anticipaciones,$irritabilidad,$tension,$fatiga,$inquietud,$temblor,$mieoscuridad,$mieextraños,$miesoledad,$miemultitudes,$difdormir,$suefragmentado,$fatidespert,$pesadi,$difconc,$memred,$perdinteres,$ausplacer,$conddepre,$despantic,$dolores,$contracciones,$rigidez,$voztitub,$tinnitus,$visionborr,$escalofrios,$sensdeb,$taquicardia,$palpitaciones,$pulsfuerte,$auslatido,$presionpech,$sensaho,$suspiros,$disnea,$nauseas,$vomito,$perdidapeso,$estreñi,$perdidalib,$frecuenciamic,$impotencia,$urgmic,$sofocos,$tendenciasu,$mareos,$cefatens,$preocupexe,$ataquesans,$obscompul,$evitasocial);
+        return $arrsintomas;
+    }
 
 	//Base de Conocimientos
 
@@ -385,7 +443,7 @@ class ReglasController extends Controller
     public function antiinfeccpara_update(Request $request){
         $sichecked=Input::has('si');
         $nochecked=Input::has('no');
-        $antiinfeccioso=Medicinfluyente::where('name','=',"anticonvulsivos")->where('cri_id','=',$this->elementos()[0])->first();
+        $antiinfeccioso=Medicinfluyente::where('name','=',"antiinfecciosos")->where('cri_id','=',$this->elementos()[0])->first();
         $antiparasitario=Medicinfluyente::where('name','=',"antiparasitarios")->where('cri_id','=',$this->elementos()[0])->first();
         if($sichecked==true){
             $antiinfeccioso->estado="si";
@@ -455,8 +513,8 @@ class ReglasController extends Controller
             return redirect()->route('reglas.antimicoticos.show');//cambiar cuando se tenga un metodo de busqueda
         }
         if($nochecked==true){
-            $analgesicos->estado="no";
-            $analgesicos->save();
+            $analgesico->estado="no";
+            $analgesico->save();
 
            return redirect()->route('reglas.antimicoticos.show');//cambiar cuando se tenga un metodo de busqueda
         }
@@ -587,7 +645,7 @@ class ReglasController extends Controller
             $inquietud->save();
             $dolor->save();
             
-            //return redirect()->route('reglas.antihipertensivos.show');//cambiar cuando se tenga un metodo de busqueda
+            return redirect()->route('reglas.preocupaciones.show');//cambiar cuando se tenga un metodo de busqueda
         }
         if($nochecked==true){
             $antihistaminico->estado="no";
@@ -595,10 +653,272 @@ class ReglasController extends Controller
             $anticatarrales->estado="no";
             $anticatarrales->save();
 
-           //return redirect()->route('reglas.antihipertensivos.show');//cambiar cuando se tenga un metodo de busqueda
+           return redirect()->route('reglas.preocupaciones.show');//cambiar cuando se tenga un metodo de busqueda
         }
         if($sichecked==true && $nochecked==true){
             return view('criterios/medicinas/antihistacata');
         }
+    }
+
+    //Sintomas
+
+    //Elemento Ansioso
+    //Reglas 13-20
+    public function preocupaciones_show(){
+        if($this->sintomas()[0]->habilitado=="si"){
+            return view('criterios/sintomas/preocupaciones');
+        }else{
+            return redirect()->route('reglas.anticipaciones.show');
+        }
+    }
+    public function preocupaciones_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[0];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.anticipaciones.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.anticipaciones.show');
+        }
+    } 
+
+    public function anticipaciones_show(){
+        if($this->sintomas()[1]->habilitado=="si"){
+            return view('criterios/sintomas/anticipaciones');
+        }else{
+            return redirect()->route('reglas.irritabilidad.show');
+        }
+    }
+
+     public function anticipaciones_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[1];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.irritabilidad.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.irritabilidad.show');
+        }
+    } 
+
+    public function irritabilidad_show(){
+        if($this->sintomas()[2]->habilitado=="si"){
+            return view('criterios/sintomas/irritabilidad');
+        }else{
+            return redirect()->route('reglas.ele_ansioso');
+        }
+    }
+
+     public function irritabilidad_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[2];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.ele_ansioso');
+            //dd($sintoma);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.ele_ansioso');
+        }
+    }
+
+    public function ele_ansioso(){
+        $eleansioso=Elemento::where('id','=',$this->elementos()[1])->where('name','=','E_Ansioso')->first();
+        $sintoma1=$this->sintomas()[0];
+        $sintoma2=$this->sintomas()[1];
+        $sintoma3=$this->sintomas()[2];
+        if($sintoma1->estado=='si' && $sintoma2->estado=='si' && $sintoma3->estado=='si'){
+            $eleansioso->estado="4";
+            $eleansioso->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no"){
+            $eleansioso->estado="3";
+            $eleansioso->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no"){
+            $eleansioso->estado="1";
+            $eleansioso->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no"){
+            $eleansioso->estado="0";
+            $eleansioso->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si"){
+            $eleansioso->estado="3";
+            $eleansioso->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no"){
+            $eleansioso->estado="1";
+            $eleansioso->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si"){
+            $eleansioso->estado="1";
+            $eleansioso->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si"){
+            $eleansioso->estado="3";
+            $eleansioso->save();
+        }
+
+        return redirect()->route('reglas.tension.show');
+    }
+
+    //Elemento Tensión
+    //Reglas 21-36
+    public function tension_show(){
+        if($this->sintomas()[3]->habilitado=="si"){
+            return view('criterios/sintomas/tension');
+        }else{
+            return redirect()->route('reglas.fatiga.show');
+        }
+    }
+    public function tension_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[3];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.fatiga.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.fatiga.show');
+        }
+    } 
+
+    public function fatiga_show(){
+        if($this->sintomas()[4]->habilitado=="si"){
+            return view('criterios/sintomas/fatiga');
+        }else{
+            return redirect()->route('reglas.inquietud.show');
+        }
+    }
+    public function fatiga_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[4];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.inquietud.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.inquietud.show');
+        }
+    } 
+
+    public function inquietud_show(){
+        if($this->sintomas()[5]->habilitado=="si"){
+            return view('criterios/sintomas/inquietud');
+        }else{
+            return redirect()->route('reglas.temblor.show');
+        }
+    }
+    public function inquietud_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[5];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.temblor.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.temblor.show');
+        }
+    } 
+
+    public function temblor_show(){
+        if($this->sintomas()[6]->habilitado=="si"){
+            return view('criterios/sintomas/temblor');
+        }else{
+            return redirect()->route('reglas.ele_tension');
+        }
+    }
+    public function temblor_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[6];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.ele_tension');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.ele_tension');
+        }
+    } 
+
+    public function ele_tension(){
+        $eletension=Elemento::where('id','=',$this->elementos()[2])->where('name','=','E_Tension')->first();
+        $sintoma1=$this->sintomas()[3];
+        $sintoma2=$this->sintomas()[4];
+        $sintoma3=$this->sintomas()[5];
+        $sintoma4=$this->sintomas()[6];
+        if($sintoma1->estado=='si' && $sintoma2->estado=='si' && $sintoma3->estado=='si' && $sintoma4->estado=='si'){
+            $eletension->estado="4";
+            $eletension->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $eletension->estado="3";
+            $eletension->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $eletension->estado="3";
+            $eletension->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $eletension->estado="2";
+            $eletension->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
+            $eletension->estado="3";
+            $eletension->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $eletension->estado="2";
+            $eletension->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $eletension->estado="2";
+            $eletension->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $eletension->estado="1";
+            $eletension->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
+            $eletension->estado="3";
+            $eletension->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $eletension->estado="2";
+            $eletension->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $eletension->estado="2";
+            $eletension->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $eletension->estado="1";
+            $eletension->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
+            $eletension->estado="2";
+            $eletension->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $eletension->estado="1";
+            $eletension->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $eletension->estado="1";
+            $eletension->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $eletension->estado="0";
+            $eletension->save();
+        }
+
+        //return redirect()->route('reglas.tension.show');
     }
 }

@@ -72,7 +72,6 @@ class InicioController extends Controller
     			array('name'=>"antimicoticos",'cri_id'=>$cri),
     			array('name'=>"antipsicoticos",'cri_id'=>$cri),
     			array('name'=>"antihistaminicos",'cri_id'=>$cri),
-    			array('name'=>"antigripales",'cri_id'=>$cri),
     			array('name'=>"anticatarrales",'cri_id'=>$cri)
     		));
 
@@ -251,7 +250,6 @@ class InicioController extends Controller
     		));
     	}
     	return redirect()->route('reglas.antiasmaticos.show');
-    	//return redirect()->route('reglas.prueba.show');
 	}
     /*public function inicializacion(){
     	$cred=Auth::user()->idcredencial;

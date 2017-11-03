@@ -37,6 +37,7 @@ Route::prefix('inicio')->group(function(){
 });
 
 Route::prefix('conocimiento')->group(function(){
+	//Rutas de Medicamentos Influyentes
 	Route::get('/antiasmaticos/show','ReglasController@antiasmaticos_show')->name('reglas.antiasmaticos.show');
 	Route::post('/antiasmaticos/update','ReglasController@antiasmaticos_update')->name('reglas.antiasmaticos.update');
 	Route::get('/inmunosupresores/show','ReglasController@inmunosupresores_show')->name('reglas.inmunosupresores.show');
@@ -61,4 +62,24 @@ Route::prefix('conocimiento')->group(function(){
 	Route::post('/antipsicoticos/update','ReglasController@antipsicoticos_update')->name('reglas.antipsicoticos.update');
 	Route::get('/antihistacata/show','ReglasController@antihistacata_show')->name('reglas.antihistacata.show');
 	Route::post('/antihistacata/update','ReglasController@antihistacata_update')->name('reglas.antihistacata.update');
+
+	//Rutas de Sintomas
+	Route::get('/preocupaciones/show','ReglasController@preocupaciones_show')->name('reglas.preocupaciones.show');
+	Route::post('/preocupaciones/upd','ReglasController@preocupaciones_upd')->name('reglas.preocupaciones.upd');
+	Route::get('/anticipaciones/show','ReglasController@anticipaciones_show')->name('reglas.anticipaciones.show');
+	Route::post('/anticipaciones/upd','ReglasController@anticipaciones_upd')->name('reglas.anticipaciones.upd');
+	Route::get('/irritabilidad/show','ReglasController@irritabilidad_show')->name('reglas.irritabilidad.show');
+	Route::post('/irritabilidad/upd','ReglasController@irritabilidad_upd')->name('reglas.irritabilidad.upd');
+	Route::get('/tension/show','ReglasController@tension_show')->name('reglas.tension.show');
+	Route::post('/tension/upd','ReglasController@tension_upd')->name('reglas.tension.upd');
+	Route::get('/fatiga/show','ReglasController@fatiga_show')->name('reglas.fatiga.show');
+	Route::post('/fatiga/upd','ReglasController@fatiga_upd')->name('reglas.fatiga.upd');
+	Route::get('/inquietud/show','ReglasController@inquietud_show')->name('reglas.inquietud.show');
+	Route::post('/inquietud/upd','ReglasController@inquietud_upd')->name('reglas.inquietud.upd');
+	Route::get('/temblor/show','ReglasController@temblor_show')->name('reglas.temblor.show');
+	Route::post('/temblor/upd','ReglasController@temblor_upd')->name('reglas.temblor.upd');
+
+	//Elementos escala
+	Route::get('/eleansioso/upd','ReglasController@ele_ansioso')->name('reglas.ele_ansioso');
+	Route::get('/eletension/upd','ReglasController@ele_tension')->name('reglas.ele_tension');
 });
