@@ -78,8 +78,17 @@ Route::prefix('conocimiento')->group(function(){
 	Route::post('/inquietud/upd','ReglasController@inquietud_upd')->name('reglas.inquietud.upd');
 	Route::get('/temblor/show','ReglasController@temblor_show')->name('reglas.temblor.show');
 	Route::post('/temblor/upd','ReglasController@temblor_upd')->name('reglas.temblor.upd');
+	Route::get('/miedoscuridad/show','ReglasController@miedoscuridad_show')->name('reglas.miedoscuridad.show');
+	Route::post('/miedoscuridad/upd','ReglasController@miedoscuridad_upd')->name('reglas.miedoscuridad.upd');
+	Route::get('/miedoextraños/show','ReglasController@miedoextraños_show')->name('reglas.miedoextraños.show');
+	Route::post('/miedoextraños/upd','ReglasController@miedoextraños_upd')->name('reglas.miedoextraños.upd');
+	Route::get('/miedosoledad/show','ReglasController@miedosoledad_show')->name('reglas.miedosoledad.show');
+	Route::post('/miedosoledad/upd','ReglasController@miedosoledad_upd')->name('reglas.miedosoledad.upd');
+	Route::get('/miedomultitud/show','ReglasController@miedomultitud_show')->name('reglas.miedomultitud.show');
+	Route::post('/miedomultitud/upd','ReglasController@miedomultitud_upd')->name('reglas.miedomultitud.upd');
 
 	//Elementos escala
 	Route::get('/eleansioso/upd','ReglasController@ele_ansioso')->name('reglas.ele_ansioso');
 	Route::get('/eletension/upd','ReglasController@ele_tension')->name('reglas.ele_tension');
+	Route::get('/elemiedo/upd','ReglasController@ele_miedo')->name('reglas.ele_miedo');
 });

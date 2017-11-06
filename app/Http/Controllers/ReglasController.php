@@ -919,6 +919,160 @@ class ReglasController extends Controller
             $eletension->save();
         }
 
-        //return redirect()->route('reglas.tension.show');
+        return redirect()->route('reglas.miedoscuridad.show');
     }
+
+    //Elemento Miedo
+    //Reglas 37-53
+    public function miedoscuridad_show(){
+        if($this->sintomas()[7]->habilitado=="si"){
+            return view('criterios/sintomas/miedoscuridad');
+        }else{
+            return redirect()->route('reglas.miedoextraños.show');
+        }
+    }
+    public function miedoscuridad_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[7];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.miedoextraños.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.miedoextraños.show');
+        }
+    } 
+
+    public function miedoextraños_show(){
+        if($this->sintomas()[8]->habilitado=="si"){
+            return view('criterios/sintomas/miedoextraños');
+        }else{
+            return redirect()->route('reglas.miedosoledad.show');
+        }
+    }
+    public function miedoextraños_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[8];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.miedosoledad.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.miedosoledad.show');
+        }
+    } 
+
+    public function miedosoledad_show(){
+        if($this->sintomas()[9]->habilitado=="si"){
+            return view('criterios/sintomas/miedosoledad');
+        }else{
+            return redirect()->route('reglas.miedomultitud.show');
+        }
+    }
+    public function miedosoledad_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[9];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.miedomultitud.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.miedomultitud.show');
+        }
+    } 
+
+    public function miedomultitud_show(){
+        if($this->sintomas()[10]->habilitado=="si"){
+            return view('criterios/sintomas/miedomultitud');
+        }else{
+            return redirect()->route('reglas.ele_miedo');
+        }
+    }
+    public function miedomultitud_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[10];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.ele_miedo');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.ele_miedo');
+        }
+    } 
+
+    public function ele_miedo(){
+        $elemiedos=Elemento::where('id','=',$this->elementos()[3])->where('name','=','E_Miedos')->first();
+        $sintoma1=$this->sintomas()[7];
+        $sintoma2=$this->sintomas()[8];
+        $sintoma3=$this->sintomas()[9];
+        $sintoma4=$this->sintomas()[10];
+        if($sintoma1->estado=='si' && $sintoma2->estado=='si' && $sintoma3->estado=='si' && $sintoma4->estado=='si'){
+            $elemiedos->estado="4";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $elemiedos->estado="3";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $elemiedos->estado="3";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $elemiedos->estado="2";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
+            $elemiedos->estado="3";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $elemiedos->estado="2";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $elemiedos->estado="2";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $elemiedos->estado="1";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
+            $elemiedos->estado="3";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $elemiedos->estado="2";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $elemiedos->estado="2";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $elemiedos->estado="1";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
+            $elemiedos->estado="2";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $elemiedos->estado="1";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $elemiedos->estado="1";
+            $elemiedos->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $elemiedos->estado="0";
+            $elemiedos->save();
+        }
+
+       // return redirect()->route('reglas.miedoscuridad.show');
+    }
+
 }
