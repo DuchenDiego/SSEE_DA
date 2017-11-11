@@ -12,8 +12,8 @@
               </article>
             </div>
             <div class="row">
-             <div class="panel-primary">
-               <div class="panel-heading">Sintomas <span class="glyphicon glyphicon-eye-close"></span></div>
+             <div class="panel-warning">
+               <div class="panel-heading">Medicamentos <span class="glyphicon glyphicon-erase"></span></div>
                <br><br>
                <div class="panel-body">
                    <div class="col-md-12 col-lg-12 ">
@@ -39,18 +39,13 @@
                         </div>
                             <div class="row">
                               <div class="col-md-9 col-lg-9">
-                                <p>@yield('infoextra')</p>
+                                <p>@yield('tratamientos')</p>
                               </div>
                               <div class="col-md-3 col-lg-3"></div>
                             </div>
                             <div class="row">
-                              <br><br>
-                              <div class="col-md-6 col-lg-6">
-                                <a href="{{ url()->previous() }}" class="btn btn-danger btn-lg btn-block"><span class="glyphicon glyphicon-menu-left"></span> Atrás</a>
-                              </div>
-                              <div class="col-md-6 col-lg-6">
+                              <br><br>  
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button> 
-                              </div> 
                             </div>
                         </form>
                    </div>

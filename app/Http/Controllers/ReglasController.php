@@ -115,6 +115,25 @@ class ReglasController extends Controller
         return $arrsintomas;
     }
 
+    public function updindicador(){
+        $sumelem=DB::table('elementos')->where('cri_id','=',$this->elementos()[0])->sum('estado');
+        $criterio=Criterio::where('id','=',$this->elementos()[0])->first();
+        $criterio->indicador=$sumelem;
+        $criterio->save();
+        $diag=Diagnostico::where('user_id','=',Auth::user()->id)->first();
+        if($sumelem<=5 && $sumelem>=0){
+            $diag->resultado="Sin ansiedad";
+            $diag->save();
+        }else if($sumelem<=14 && $sumelem>=6){
+            $diag->resultado="Ansiedad leve";
+            $diag->save();
+        }else if($sumelem>=15){
+            $diag->resultado="Ansiedad moderada/grave";
+            $diag->save();
+            //return redirect()->route('reglas.funcion de trastorno);
+        }
+    }
+
 	//Base de Conocimientos
 
 	//Excepciones Farmacológicas
@@ -162,7 +181,10 @@ class ReglasController extends Controller
             return redirect()->route('reglas.inmunosupresores.show');//cambiar cuando se tenga un metodo de busqueda
         }
         if($sichecked==true && $nochecked==true){
-            return view('criterios/medicinas/antiasmatico');
+            return view('criterios/medicinas/antiasmaticos');
+        }
+        if($sichecked==false && $nochecked==false){
+            return view('criterios/medicinas/antiasmaticos');
         }
     }
 
@@ -741,31 +763,31 @@ class ReglasController extends Controller
         $sintoma2=$this->sintomas()[1];
         $sintoma3=$this->sintomas()[2];
         if($sintoma1->estado=='si' && $sintoma2->estado=='si' && $sintoma3->estado=='si'){
-            $eleansioso->estado="4";
+            $eleansioso->estado=4;
             $eleansioso->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no"){
-            $eleansioso->estado="3";
+            $eleansioso->estado=3;
             $eleansioso->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no"){
-            $eleansioso->estado="1";
+            $eleansioso->estado=1;
             $eleansioso->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no"){
-            $eleansioso->estado="0";
+            $eleansioso->estado=0;
             $eleansioso->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si"){
-            $eleansioso->estado="3";
+            $eleansioso->estado=3;
             $eleansioso->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no"){
-            $eleansioso->estado="1";
+            $eleansioso->estado=1;
             $eleansioso->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si"){
-            $eleansioso->estado="1";
+            $eleansioso->estado=1;
             $eleansioso->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si"){
-            $eleansioso->estado="3";
+            $eleansioso->estado=3;
             $eleansioso->save();
         }
-
+        $this->updindicador();
         return redirect()->route('reglas.tension.show');
     }
 
@@ -870,55 +892,55 @@ class ReglasController extends Controller
         $sintoma3=$this->sintomas()[5];
         $sintoma4=$this->sintomas()[6];
         if($sintoma1->estado=='si' && $sintoma2->estado=='si' && $sintoma3->estado=='si' && $sintoma4->estado=='si'){
-            $eletension->estado="4";
+            $eletension->estado=4;
             $eletension->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
-            $eletension->estado="3";
+            $eletension->estado=3;
             $eletension->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
-            $eletension->estado="3";
+            $eletension->estado=3;
             $eletension->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
-            $eletension->estado="2";
+            $eletension->estado=2;
             $eletension->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
-            $eletension->estado="3";
+            $eletension->estado=3;
             $eletension->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
-            $eletension->estado="2";
+            $eletension->estado=2;
             $eletension->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
-            $eletension->estado="2";
+            $eletension->estado=2;
             $eletension->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
-            $eletension->estado="1";
+            $eletension->estado=1;
             $eletension->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
-            $eletension->estado="3";
+            $eletension->estado=3;
             $eletension->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
-            $eletension->estado="2";
+            $eletension->estado=2;
             $eletension->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
-            $eletension->estado="2";
+            $eletension->estado=2;
             $eletension->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
-            $eletension->estado="1";
+            $eletension->estado=1;
             $eletension->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
-            $eletension->estado="2";
+            $eletension->estado=2;
             $eletension->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
-            $eletension->estado="1";
+            $eletension->estado=1;
             $eletension->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
-            $eletension->estado="1";
+            $eletension->estado=1;
             $eletension->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
-            $eletension->estado="0";
+            $eletension->estado=0;
             $eletension->save();
         }
-
+        $this->updindicador();
         return redirect()->route('reglas.miedoscuridad.show');
     }
 
@@ -1023,56 +1045,319 @@ class ReglasController extends Controller
         $sintoma3=$this->sintomas()[9];
         $sintoma4=$this->sintomas()[10];
         if($sintoma1->estado=='si' && $sintoma2->estado=='si' && $sintoma3->estado=='si' && $sintoma4->estado=='si'){
-            $elemiedos->estado="4";
+            $elemiedos->estado=4;
             $elemiedos->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
-            $elemiedos->estado="3";
+            $elemiedos->estado=3;
             $elemiedos->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
-            $elemiedos->estado="3";
+            $elemiedos->estado=3;
             $elemiedos->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
-            $elemiedos->estado="2";
+            $elemiedos->estado=2;
             $elemiedos->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
-            $elemiedos->estado="3";
+            $elemiedos->estado=3;
             $elemiedos->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
-            $elemiedos->estado="2";
+            $elemiedos->estado=2;
             $elemiedos->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
-            $elemiedos->estado="2";
+            $elemiedos->estado=2;
             $elemiedos->save();
         }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
-            $elemiedos->estado="1";
+            $elemiedos->estado=1;
             $elemiedos->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
-            $elemiedos->estado="3";
+            $elemiedos->estado=3;
             $elemiedos->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
-            $elemiedos->estado="2";
+            $elemiedos->estado=2;
             $elemiedos->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
-            $elemiedos->estado="2";
+            $elemiedos->estado=2;
             $elemiedos->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
-            $elemiedos->estado="1";
+            $elemiedos->estado=1;
             $elemiedos->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
-            $elemiedos->estado="2";
+            $elemiedos->estado=2;
             $elemiedos->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
-            $elemiedos->estado="1";
+            $elemiedos->estado=1;
             $elemiedos->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
-            $elemiedos->estado="1";
+            $elemiedos->estado=1;
             $elemiedos->save();
         }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
-            $elemiedos->estado="0";
+            $elemiedos->estado=0;
             $elemiedos->save();
         }
-
-       // return redirect()->route('reglas.miedoscuridad.show');
+       $this->updindicador();
+       return redirect()->route('reglas.difdormir.show');
     }
 
+    public function difdormir_show(){
+        if($this->sintomas()[11]->habilitado=="si"){
+            return view('criterios/sintomas/difdormir');
+        }else{
+            return redirect()->route('reglas.suenofrag.show');
+        }
+    }
+    public function difdormir_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[11];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.suenofrag.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.suenofrag.show');
+        }
+    } 
+
+    public function suenofrag_show(){
+        if($this->sintomas()[12]->habilitado=="si"){
+            return view('criterios/sintomas/suenofrag');
+        }else{
+            return redirect()->route('reglas.fatigadesp.show');
+        }
+    }
+    public function suenofrag_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[12];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.fatigadesp.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.fatigadesp.show');
+        }
+    } 
+
+    public function fatigadesp_show(){
+        if($this->sintomas()[13]->habilitado=="si"){
+            return view('criterios/sintomas/fatigadesp');
+        }else{
+            return redirect()->route('reglas.pesadillas.show');
+        }
+    }
+    public function fatigadesp_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[13];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.pesadillas.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.pesadillas.show');
+        }
+    }
+
+    public function pesadillas_show(){
+        if($this->sintomas()[14]->habilitado=="si"){
+            return view('criterios/sintomas/pesadillas');
+        }else{
+            return redirect()->route('reglas.ele_insomnio');
+        }
+    }
+    public function pesadillas_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[14];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.ele_insomnio');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.ele_insomnio');
+        }
+    }
+
+    public function ele_insomnio(){
+        $eleinsomnio=Elemento::where('id','=',$this->elementos()[4])->where('name','=','E_Insomnio')->first();
+        $sintoma1=$this->sintomas()[11];
+        $sintoma2=$this->sintomas()[12];
+        $sintoma3=$this->sintomas()[13];
+        $sintoma4=$this->sintomas()[14];
+        if($sintoma1->estado=='si' && $sintoma2->estado=='si' && $sintoma3->estado=='si' && $sintoma4->estado=='si'){
+            $eleinsomnio->estado=4;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $eleinsomnio->estado=3;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $eleinsomnio->estado=3;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $eleinsomnio->estado=2;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
+            $eleinsomnio->estado=3;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $eleinsomnio->estado=2;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $eleinsomnio->estado=2;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $eleinsomnio->estado=1;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
+            $eleinsomnio->estado=3;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $eleinsomnio->estado=2;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $eleinsomnio->estado=2;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $eleinsomnio->estado=1;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="si"){
+            $eleinsomnio->estado=2;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="si" && $sintoma4->estado==="no"){
+            $eleinsomnio->estado=1;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="si"){
+            $eleinsomnio->estado=1;
+            $eleinsomnio->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no" && $sintoma3->estado==="no" && $sintoma4->estado==="no"){
+            $eleinsomnio->estado=0;
+            $eleinsomnio->save();
+        }
+       $this->updindicador();
+       return redirect()->route('reglas.difconcen.show');
+    }
+
+    public function difconcen_show(){
+        if($this->sintomas()[15]->habilitado=="si"){
+            return view('criterios/sintomas/difconcen');
+        }else{
+            return redirect()->route('reglas.memred.show');
+        }
+    }
+    public function difconcen_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[15];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.memred.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.memred.show');
+        }
+    }
+
+    public function memred_show(){
+        if($this->sintomas()[16]->habilitado=="si"){
+            return view('criterios/sintomas/memred');
+        }else{
+            return redirect()->route('reglas.ele_intelectual');
+        }
+    }
+    public function memred_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[16];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.ele_intelectual');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.ele_intelectual');
+        }
+    }
+
+    public function ele_intelectual(){
+        $eleintelectual=Elemento::where('id','=',$this->elementos()[5])->where('name','=','E_Intelectual')->first();
+        $sintoma1=$this->sintomas()[15];
+        $sintoma2=$this->sintomas()[16];
+        if($sintoma1->estado=='si' && $sintoma2->estado=='si'){
+            $eleintelectual->estado=4;
+            $eleintelectual->save();
+        }else if($sintoma1->estado==="si" && $sintoma2->estado==="no"){
+            $eleintelectual->estado=2;
+            $eleintelectual->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="si"){
+            $eleintelectual->estado=2;
+            $eleintelectual->save();
+        }else if($sintoma1->estado==="no" && $sintoma2->estado==="no"){
+            $eleintelectual->estado=0;
+            $eleintelectual->save();
+        }
+        $this->updindicador();
+        //return redirect()->route('reglas.perdint.show');
+    }
+
+    /*public function perdint_show(){
+        if($this->sintomas()[17]->habilitado=="si"){
+            return view('criterios/sintomas/perdint');
+        }else{
+            return redirect()->route('reglas.ausplacer.show');
+        }
+    }
+    public function perdint_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[17];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.ausplacer.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.ausplacer.show');
+        }
+    }
+
+    public function perdint_show(){
+        if($this->sintomas()[17]->habilitado=="si"){
+            return view('criterios/sintomas/perdint');
+        }else{
+            return redirect()->route('reglas.ausplacer.show');
+        }
+    }
+    public function perdint_upd(Request $request){
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+        $sintoma=$this->sintomas()[17];
+        if($sichecked==true){
+            $sintoma->estado="si";
+            $sintoma->save();
+            return redirect()->route('reglas.ausplacer.show');
+            //dd($sintoma->estado);
+        }else if($nochecked==true){
+            $sintoma->estado="no";
+            $sintoma->save();
+            return redirect()->route('reglas.ausplacer.show');
+        }
+    }*/
 }

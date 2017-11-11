@@ -1,5 +1,5 @@
 @section('content')  
-   @extends('criterios/medicinas/template_med/contentmed')
+   @extends('criterios/medicinas/template_med/contentmedaux')
    @section('destinoform')
     <form action="{{ route('reglas.antiasmaticos.update')}}" method="POST">
    @endsection

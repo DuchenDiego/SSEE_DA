@@ -86,9 +86,23 @@ Route::prefix('conocimiento')->group(function(){
 	Route::post('/miedosoledad/upd','ReglasController@miedosoledad_upd')->name('reglas.miedosoledad.upd');
 	Route::get('/miedomultitud/show','ReglasController@miedomultitud_show')->name('reglas.miedomultitud.show');
 	Route::post('/miedomultitud/upd','ReglasController@miedomultitud_upd')->name('reglas.miedomultitud.upd');
+	Route::get('/difdormir/show','ReglasController@difdormir_show')->name('reglas.difdormir.show');
+	Route::post('/difdormir/upd','ReglasController@difdormir_upd')->name('reglas.difdormir.upd');
+	Route::get('/suenofrag/show','ReglasController@suenofrag_show')->name('reglas.suenofrag.show');
+	Route::post('/suenofrag/upd','ReglasController@suenofrag_upd')->name('reglas.suenofrag.upd');
+	Route::get('/fatigadesp/show','ReglasController@fatigadesp_show')->name('reglas.fatigadesp.show');
+	Route::post('/fatigadesp/upd','ReglasController@fatigadesp_upd')->name('reglas.fatigadesp.upd');
+	Route::get('/pesadillas/show','ReglasController@pesadillas_show')->name('reglas.pesadillas.show');
+	Route::post('/pesadillas/upd','ReglasController@pesadillas_upd')->name('reglas.pesadillas.upd');
+	Route::get('/difconcen/show','ReglasController@difconcen_show')->name('reglas.difconcen.show');
+	Route::post('/difconcen/upd','ReglasController@difconcen_upd')->name('reglas.difconcen.upd');
+	Route::get('/memred/show','ReglasController@memred_show')->name('reglas.memred.show');
+	Route::post('/memred/upd','ReglasController@memred_upd')->name('reglas.memred.upd');
 
 	//Elementos escala
 	Route::get('/eleansioso/upd','ReglasController@ele_ansioso')->name('reglas.ele_ansioso');
 	Route::get('/eletension/upd','ReglasController@ele_tension')->name('reglas.ele_tension');
 	Route::get('/elemiedo/upd','ReglasController@ele_miedo')->name('reglas.ele_miedo');
+	Route::get('/eleinsomnio/upd','ReglasController@ele_insomnio')->name('reglas.ele_insomnio');
+	Route::get('/eleintelectual/upd','ReglasController@ele_intelectual')->name('reglas.ele_intelectual');
 });
