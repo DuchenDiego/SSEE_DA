@@ -27,7 +27,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function criterios(){
+    /*public function criterios(){
         return $this->hasMany("App\Criterio","diag_id");
-    }
+    }*/
 }
