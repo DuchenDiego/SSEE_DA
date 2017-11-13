@@ -27,7 +27,23 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /*public function criterios(){
-        return $this->hasMany("App\Criterio","diag_id");
-    }*/
+    public function diagnosticos(){
+        return $this->hasMany("App\Diagnostico","user_id");
+    }
+
+    public function predisposiciones(){
+        return $this->belongsToMany("App\Predisposicion","p_hechos");
+    }
+
+    public function elementos(){
+        return $this->belongsToMany("App\Elemento","p_hechos");
+    }
+
+    public function sintomas(){
+        return $this->belongsToMany("App\Sintoma","p_hechos");
+    }
+
+    public function medicinfluyentes(){
+        return $this->belongsToMany("App\Medicinfluyente","p_hechos");
+    }
 }

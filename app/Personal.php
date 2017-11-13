@@ -30,8 +30,8 @@ class Personal extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /*public function diagnosticos(){
-        return $this->hasMany("App\Diagnostico","pers_id");
-    }*/
+    public function diagnosticos(){
+        return $this->belongsToMany("App\Diagnostico","p_personal");
+    }
     
 }
