@@ -46,12 +46,7 @@
                             </div>
                             <div class="row">
                               <br><br>  
-                              <div class="col-md-6 col-lg-6">
-                                <a href="{{ url()->previous() }}" class="btn btn-danger btn-lg btn-block"><span class="glyphicon glyphicon-menu-left"></span> Atrás</a>
-                              </div>
-                              <div class="col-md-6 col-lg-6">
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button> 
-                              </div>
+                              <button type="submit" class="btn btn-primary btn-lg btn-block">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button>  
                             </div>
                         </form>
                    </div>

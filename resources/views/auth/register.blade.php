@@ -57,7 +57,13 @@
                             <label for="carrera" class="col-md-4 control-label">Carrera</label>
 
                             <div class="col-md-6">
-                                <input id="carrera" type="text" class="form-control" name="carrera" value="{{ old('carrera') }}" required autofocus>
+
+                                <select name="carrera" class="form-control">
+                                  <option value="Ing. de Sistemas">Ing. de Sistemas</option>
+                                  <option value="Ing. Electónica">Ing. Electónica</option>
+                                  <option value="Ing. de Telecomunicaciones">Ing. de Telecomunicaciones</option>
+                                  <option value="Ing. Industrial">Ing. Industrial</option>
+                                </select>
 
                                 @if ($errors->has('carrera'))
                                     <span class="help-block">

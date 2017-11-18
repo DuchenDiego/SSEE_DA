@@ -13,13 +13,74 @@ use App\Elemento;
 use App\Sintoma;
 use Auth;
 
+use App\Hecho;
+
 class MotorController extends Controller
 {
-	//Motor de Inferencia
 
-    public function base(){
-    	/*$idestudiante=Auth::user()->id;
-    	$criterio=Criterio::where('user_id','=',$idestudiante)->first();*/
-    	//return redirect()->route('medicinas.antiasmaticos');
+	public function showMedicamentos(){
+		//comprobar si existe el medicamento en los hechos, si es asi redireccionar
+		$medicamentos=Medicinfluyente::all();
+
+		$id=Auth::user()->id;
+    	$ultdiag=Diagnostico::where('user_id','=',$id)->max('numero');
+    	$diag=Diagnostico::where('user_id','=',$id)->where('numero','=',$ultdiag)->first();
+
+		foreach ($medicamentos as $campos){
+			$hechomedic=Hecho::where("medic_id","=",$campos["id"])->where("diag_id","=",$diag->id)->first();
+			if($hechomedic==false){
+				return view("criterios/medicinas/".$campos["name"])->with("medid",$campos["id"]);
+			}
+		}
+		return redirect()->route('motor.sintomas');
+    }
+
+    public function showSintomas(){
+
+    } 
+
+    public function showPredisposiciones(){
+    	$predisposiciones=Predisposicion::all();
+    }
+
+    public function reglasMedicamentos($id){
+    	$idusr=Auth::user()->id;
+    	$ultdiag=Diagnostico::max('numero');
+    	$diag=Diagnostico::where('user_id','=',$idusr)->where('numero','=',$ultdiag)->first();
+
+    	$hechomedi=Hecho::where('medic_id','=',$id)->first();
+    	$reglamedi=Criterio::where('medic_id','=',$id)->first();
+
+    	$conclusiones=Criterio::where('premis_id','=',$reglamedi->premis_id)->where('conclusion','=',1)->get();
+    	if($hechomedi->estado==1){
+    		foreach ($conclusiones as $con) {
+    			$sintdes=new Hecho;
+    			$sintdes->user_id=$idusr;
+    			$sintdes->diag_id=$diag->id;
+    			$sintdes->sinto_id=$con["sinto_id"];
+    			$sintdes->estado=$con["valor"];
+    			$sintdes->save();
+    		}
+    	}else if($hechomedi->estado==0){
+    		foreach ($conclusiones as $con) {
+    			$hechosinto=Hecho::where('sinto_id','=',$con["sinto_id"])->where('estado','=',0)->first();
+    			if($hechosinto==true){
+    				$hechosinto->delete();
+    			}
+    		}
+    	}
+    	return redirect()->route('motor.medicamentos');
+    }
+
+    public function reglasSintomas($id){
+
+    }
+
+    public function reglasElementos(){
+
+    }
+
+    public function reglasPrediposiciones($id){
+
     }
 }

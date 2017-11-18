@@ -17,4 +17,8 @@ class Diagnostico extends Model
     public function personals(){
     	return $this->belongsToMany("App\Personal","p_personal");
     }
+
+    public function hechos(){
+        return $this->hasMany("App\Hecho","diag_id");
+    }
 }

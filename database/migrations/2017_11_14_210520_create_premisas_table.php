@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSintomasTable extends Migration
+class CreatePremisasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSintomasTable extends Migration
      */
     public function up()
     {
-        Schema::create('sintomas', function (Blueprint $table) {
+        Schema::create('premisas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('elem_id')->unsigned();
-            $table->foreign('elem_id')->references('id')->on('elementos')->onDelete('cascade');
+            $table->string('operadorlogico');
+            $table->integer('regla_id')->unsigned();
+            $table->foreign('regla_id')->references('id')->on('reglas')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateSintomasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sintomas');
+        Schema::dropIfExists('premisas');
     }
 }

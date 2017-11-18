@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('appaterno');
             $table->string('apmaterno');
-            $table->string('carrera');
+            $table->enum('carrera',['Ing. de Sistemas','Ing. Electónica','Ing. de Telecomunicaciones','Ing. Industrial']);
             $table->enum('semestre',['1','2','3','4','5','6','7','8','9','10'])->default('1');
             $table->date('fechanac');
             $table->rememberToken();

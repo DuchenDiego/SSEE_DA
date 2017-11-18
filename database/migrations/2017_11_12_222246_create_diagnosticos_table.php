@@ -15,6 +15,7 @@ class CreateDiagnosticosTable extends Migration
     {
         Schema::create('diagnosticos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('numero');
             $table->integer('indicador');
             $table->string('resultado');
             $table->enum('tipotrastorno',['NA','TAG','TOC','TP','TAS'])->default('NA');

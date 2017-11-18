@@ -27,7 +27,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function diagnosticos(){
+    /*public function diagnosticos(){
         return $this->hasMany("App\Diagnostico","user_id");
     }
 
@@ -45,5 +45,9 @@ class User extends Authenticatable
 
     public function medicinfluyentes(){
         return $this->belongsToMany("App\Medicinfluyente","p_hechos");
+    }*/
+
+    public function hechos(){
+        return $this->hasMany("App\Hecho","user_id");
     }
 }
