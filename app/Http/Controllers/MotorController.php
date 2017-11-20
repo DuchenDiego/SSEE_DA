@@ -36,7 +36,20 @@ class MotorController extends Controller
     }
 
     public function showSintomas(){
+        //comprobar si existe el sintoma en los hechos, si es asi redireccionar
+        $sintomas=Sintoma::all();
 
+        $id=Auth::user()->id;
+        $ultdiag=Diagnostico::where('user_id','=',$id)->max('numero');
+        $diag=Diagnostico::where('user_id','=',$id)->where('numero','=',$ultdiag)->first()
+
+        foreach ($sintomas as $campos){
+            $hechosint=Hecho:::where("sinto_id","=",$campos["id"])->where("diag_id","=",$diag->id)->first();
+            if($hechosint==false){
+                return view("criterios/sintomas/".$campos["name"])->with("sintid",$campos["id"]);
+            }
+
+        }
     } 
 
     public function showPredisposiciones(){

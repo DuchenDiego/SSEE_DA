@@ -14,6 +14,9 @@
     <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!--Jquery UI-->
+    <link href=" {{ asset('plugins/jquery/css/jquery-ui.css') }} " rel="stylesheet">
+
 </head>
 <body class="bg">
     <div id="app">
@@ -77,5 +80,25 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <!--Jquery UI-->
+    <script src=" {{ asset('plugins/jquery/js/jquery-3.2.1.js')  }}"></script>
+    <script src="{{ asset('plugins/jquery/js/jquery-ui.js') }} "></script>
+    <script>
+      $( function() {
+        $( "#fechanac" ).datepicker({
+            showAnim: 'slideDown',
+            dateFormat: 'yy-mm-dd',
+            minDate: '-30Y',
+            maxDate: '-214M',
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 1,
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr',
+                       'May', 'Jun', 'Jul', 'Ago',
+                       'Sep', 'Oct', 'Nov', 'Dic']
+        });
+      } );
+    </script>
 </body>
 </html>

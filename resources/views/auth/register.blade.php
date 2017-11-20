@@ -103,7 +103,7 @@
                             <label for="fechanac" class="col-md-4 control-label">Fecha de Nacimiento</label>
 
                             <div class="col-md-6">
-                                <input id="fechanac" type="text" class="form-control" name="fechanac" value="{{ old('fechanac') }}" required>
+                                <input id="fechanac" type="text" class="form-control" value="{{ old('fechanac') }}" required>
 
                                 @if ($errors->has('fechanac'))
                                     <span class="help-block">
