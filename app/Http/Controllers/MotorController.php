@@ -18,38 +18,57 @@ use App\Hecho;
 class MotorController extends Controller
 {
 
-	public function showMedicamentos(){
-		//comprobar si existe el medicamento en los hechos, si es asi redireccionar
+	public function showMedicamentos($back){
+        //recibir parametro para saber si se presionó adelante o back
+        //si fue back: retornar la vista del último registro de medicamento de hechos
+        //si fue adelante:comprobar si existe el medicamento en los hechos, si es asi redireccionar, si no, retornar vista del medicamento faltante
 		$medicamentos=Medicinfluyente::all();
 
 		$id=Auth::user()->id;
     	$ultdiag=Diagnostico::where('user_id','=',$id)->max('numero');
     	$diag=Diagnostico::where('user_id','=',$id)->where('numero','=',$ultdiag)->first();
 
-		foreach ($medicamentos as $campos){
-			$hechomedic=Hecho::where("medic_id","=",$campos["id"])->where("diag_id","=",$diag->id)->first();
-			if($hechomedic==false){
-				return view("criterios/medicinas/".$campos["name"])->with("medid",$campos["id"]);
-			}
-		}
-		return redirect()->route('motor.sintomas');
+        if($back==1){
+            $idult=Hecho::where("diag_id","=",$diag->id)->max('medic_id');
+            $ultmedic=Medicinfluyente::where("id","=",$idult)->first();
+            return view("criterios/medicinas/".$ultmedic->name)->with("medid",$ultmedic->id);
+        }
+        if($back==0){
+          foreach ($medicamentos as $campos){
+                $hechomedic=Hecho::where("medic_id","=",$campos["id"])->where("diag_id","=",$diag->id)->first();
+                if($hechomedic==false){
+                    return view("criterios/medicinas/".$campos["name"])->with("medid",$campos["id"]);
+                }
+            }  
+        }
+
+		return redirect()->route('motor.sintomas', ['back'=>0]);
     }
 
-    public function showSintomas(){
-        //comprobar si existe el sintoma en los hechos, si es asi redireccionar
+    public function showSintomas($back){
+        //el mismo procedimiento que showMedicamentos
         $sintomas=Sintoma::all();
 
         $id=Auth::user()->id;
         $ultdiag=Diagnostico::where('user_id','=',$id)->max('numero');
-        $diag=Diagnostico::where('user_id','=',$id)->where('numero','=',$ultdiag)->first()
+        $diag=Diagnostico::where('user_id','=',$id)->where('numero','=',$ultdiag)->first();
 
-        foreach ($sintomas as $campos){
-            $hechosint=Hecho:::where("sinto_id","=",$campos["id"])->where("diag_id","=",$diag->id)->first();
-            if($hechosint==false){
-                return view("criterios/sintomas/".$campos["name"])->with("sintid",$campos["id"]);
+        if($back==1){
+            $idult=Hecho::where("diag_id","=",$diag->id)->where('numPremisa','>',15)->max('sinto_id');
+            $ultsinto=Sintoma::where("id","=",$idult)->first();
+            if($ultsinto==true){
+               return view("criterios/sintomas/".$ultsinto->name)->with("sintid",$ultsinto->id); 
             }
-
         }
+
+        foreach($sintomas as $campos){
+                $hechosint=Hecho::where("sinto_id","=",$campos["id"])->where("diag_id","=",$diag->id)->first();
+                if($hechosint==false){
+                    return view("criterios/sintomas/".$campos["name"])->with("sintid",$campos["id"]);
+                }
+            }           
+
+        return redirect()->route('motor.predisposiciones');
     } 
 
     public function showPredisposiciones(){
@@ -57,40 +76,109 @@ class MotorController extends Controller
     }
 
     public function reglasMedicamentos($id){
+        //Comprobar si el estado del hecho registrado es positivo, si es así, registrar las conclusiones de sintomas correspondientes, si no, verificar si existen y si es asi eliminarlas
     	$idusr=Auth::user()->id;
     	$ultdiag=Diagnostico::max('numero');
     	$diag=Diagnostico::where('user_id','=',$idusr)->where('numero','=',$ultdiag)->first();
 
-    	$hechomedi=Hecho::where('medic_id','=',$id)->first();
+    	$hechomedi=Hecho::where('medic_id','=',$id)->where('diag_id','=',$diag->id)->first();
     	$reglamedi=Criterio::where('medic_id','=',$id)->first();
 
     	$conclusiones=Criterio::where('premis_id','=',$reglamedi->premis_id)->where('conclusion','=',1)->get();
     	if($hechomedi->estado==1){
     		foreach ($conclusiones as $con) {
-    			$sintdes=new Hecho;
-    			$sintdes->user_id=$idusr;
-    			$sintdes->diag_id=$diag->id;
-    			$sintdes->sinto_id=$con["sinto_id"];
-    			$sintdes->estado=$con["valor"];
-    			$sintdes->save();
+                $findcon=Hecho::where('user_id','=',$idusr)->where('diag_id','=',$diag->id)->where('sinto_id','=',$con["sinto_id"])->where('estado','=',$con["valor"])->first();
+                if($findcon==false){
+                    $sintdes=new Hecho;
+                    $sintdes->numPremisa=$reglamedi->premis_id;
+                    $sintdes->user_id=$idusr;
+                    $sintdes->diag_id=$diag->id;
+                    $sintdes->sinto_id=$con["sinto_id"];
+                    $sintdes->estado=$con["valor"];
+                    $sintdes->save();
+                }
+                /*$sintdes=Hecho::updateOrCreate(
+                ['user_id'=>$idusr,'diag_id'=>$diag->id, 'sinto_id'=>$con["sinto_id"], 'estado'=>$con["valor"]],
+                ['numPremisa'=>$reglamedi->premis_id]
+                );*/
     		}
     	}else if($hechomedi->estado==0){
     		foreach ($conclusiones as $con) {
-    			$hechosinto=Hecho::where('sinto_id','=',$con["sinto_id"])->where('estado','=',0)->first();
+    			$hechosinto=Hecho::where('sinto_id','=',$con["sinto_id"])->where('estado','=',0)->where('numPremisa','=',$con["premis_id"])->where('diag_id','=',$diag->id)->first();
     			if($hechosinto==true){
     				$hechosinto->delete();
     			}
     		}
     	}
-    	return redirect()->route('motor.medicamentos');
+    	return redirect()->route('motor.medicamentos', ['back'=>0]);
     }
 
     public function reglasSintomas($id){
+        //verificar si se registraron todos los sitomas del elemento, si es asi redireccionar a reglas.elementos, si no es así redireccionar a motor.sintomas
+        $idusr=Auth::user()->id;
+        $ultdiag=Diagnostico::max('numero');
+        $diag=Diagnostico::where('user_id','=',$idusr)->where('numero','=',$ultdiag)->first();
 
+        $sintoma=Sintoma::where('id','=',$id)->first();
+        $sintosdeelemento=Sintoma::where('elem_id','=',$sintoma->elem_id)->get();//todos los sintomas relacionados de acuerdo al id de elemento
+
+        $contador=0;
+        foreach ($sintosdeelemento as $sint) {
+            $hechosint=Hecho::where('sinto_id','=',$sint["id"])->where('diag_id','=',$diag->id)->first();
+            if($hechosint==true){
+                $contador++;
+            }else{
+                return redirect()->route('motor.sintomas', ['back'=>0]);
+            }
+            /*$hechosint=Hecho::where('sinto_id','=',$sint["id"])->where('diag_id','=',$diag->id)->first();
+            $critsint=Criterio::where('sinto_id','=',$sint["id"])->where('conclusion','=',1)->first();
+            if($hechosint==false && $critsint==false){
+                return redirect()->route('motor.sintomas');
+            }*/
+        }
+        if(count($sintosdeelemento)==$contador){
+            return redirect()->route('reglas.elementos',['id'=>$sintoma->elem_id]);
+        }
+        //$numhechosint=Hecho::where('sinto_id','=',$sintoma->id)->count();
+        //return redirect()->route('reglas.elementos',['id'=>$sintoma->elem_id]);
     }
 
-    public function reglasElementos(){
+    public function reglasElementos($id){
+        $idusr=Auth::user()->id;
+        $ultdiag=Diagnostico::max('numero');
+        $diag=Diagnostico::where('user_id','=',$idusr)->where('numero','=',$ultdiag)->first();
 
+        //Elemento Determinado
+        $elemento=Criterio::where('elem_id','=',$id)->where('conclusion','=',1)->get();
+        //Cantidad de sintomas de elemento 
+        $sintoma=Criterio::where('premis_id','=',$elemento[0]->premis_id)->where('conclusion','=',0)->get();
+        //array para verificar si los sintomas ingresados concuerdan con la premisa
+        $verificar=array();
+        //Para cada elemento verificar si sus sintomas tienen el mismo valor que los registrados
+        foreach ($elemento as $ele) {
+            $sintomaele=Criterio::where('premis_id','=',$ele["premis_id"])->where('conclusion','=',0)->get();
+            foreach ($sintomaele as $sint) {
+                $hechosint=Hecho::where('sinto_id','=',$sint["sinto_id"])->where('diag_id','=',$diag->id)->first();
+                if($hechosint->estado==$sint["valor"]){
+                    array_push($verificar, 1);//si tiene el mismo valor, agregar 1 al array
+                }else{
+                    array_push($verificar, 0);
+                }
+                if(count($verificar)==count($sintoma)){// si el array auxiliar es del mismo tamaño que la cantidad de sintomas
+                    $esigual=count(array_unique($verificar));
+                    $esuno=array_unique($verificar);
+                    if($esigual==1 && $esuno[0]==1){// si todos los elementos del array son iguales y si su valor es 1
+                        $hechoele=Hecho::updateOrCreate(
+                            ['user_id'=>$idusr,'diag_id'=>$diag->id, 'elem_id'=>$ele["elem_id"]],
+                            ['estado'=>$ele["valor"],'numPremisa'=>$ele["premis_id"]]
+                        );
+                        break;
+                    }
+                    $verificar=array();
+                }
+            }
+        }
+        return redirect()->route('motor.sintomas', ['back'=>0]);
     }
 
     public function reglasPrediposiciones($id){

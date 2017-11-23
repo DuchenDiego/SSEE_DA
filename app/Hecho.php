@@ -8,7 +8,7 @@ class Hecho extends Model
 {
     protected $table="p_hechos";
 
-    protected $fillable=["habilitado","estado","user_id","diag_id","predis_id","elem_id","sinto_id","medic_id"];
+    protected $fillable=["numPremisa","estado","user_id","diag_id","predis_id","elem_id","sinto_id","medic_id"];
 
     public function predisposicion(){
     	return $this->belongsTo("App\Predisposicion","predis_id");

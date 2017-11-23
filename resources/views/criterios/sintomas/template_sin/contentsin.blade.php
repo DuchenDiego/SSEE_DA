@@ -12,14 +12,14 @@
               </article>
             </div>
             <div class="row">
-             <div class="panel-warning">
-               <div class="panel-heading">Medicamentos <span class="glyphicon glyphicon-erase"></span></div>
+             <div class="panel-primary">
+               <div class="panel-heading">Sintomas <span class="glyphicon glyphicon-eye-close"></span></div>
                <br><br>
                <div class="panel-body">
                    <div class="col-md-12 col-lg-12 ">
                      <div class="form-group">
-                        <form action="{{ route('hechos.medicamentos')}}" method="POST">
-                        <input type="hidden" name="medid" value="{{ $medid }}">
+                        <form action="{{ route('hechos.sintomas')}}" method="POST">
+                        <input type="hidden" name="sintid" value="{{ $sintid }}">
                         <div class="row">
                           <div class="col-md-9 col-lg-9 ">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -40,18 +40,18 @@
                         </div>
                             <div class="row">
                               <div class="col-md-9 col-lg-9">
-                                <p>@yield('tratamientos')</p>
+                                <p>@yield('infoextra')</p>
                               </div>
                               <div class="col-md-3 col-lg-3"></div>
                             </div>
                             <div class="row">
-                              <br><br>  
+                              <br><br>
                               <div class="col-md-6 col-lg-6">
-                                <a href="{{ route('motor.medicamentos', ['back'=>1]) }}" class="btn btn-danger btn-lg btn-block"><span class="glyphicon glyphicon-menu-left"></span> Atrás</a>
+                                <a href="{{ route('motor.sintomas', ['back'=>1]) }}" class="btn btn-danger btn-lg btn-block"><span class="glyphicon glyphicon-menu-left"></span> Atrás</a>
                               </div>
                               <div class="col-md-6 col-lg-6">
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Siguiente <span class="glyphicon glyphicon-menu-right"></span></button> 
-                              </div>
+                              </div> 
                             </div>
                         </form>
                    </div>

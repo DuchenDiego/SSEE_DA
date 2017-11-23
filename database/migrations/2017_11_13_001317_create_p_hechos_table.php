@@ -16,6 +16,7 @@ class CreatePHechosTable extends Migration
         Schema::create('p_hechos', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('estado')->default(0);
+            $table->integer('numPremisa')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('diag_id')->unsigned();
             $table->integer('predis_id')->unsigned()->nullable($value = true);

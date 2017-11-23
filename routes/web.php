@@ -33,8 +33,8 @@ Route::prefix('inicio')->group(function(){
 
 Route::prefix('show')->group(function(){
 	Route::get('/Predisposiciones','MotorController@showPredisposiciones')->name('motor.predisposiciones');
-	Route::get('/Sintomas','MotorController@showSintomas')->name('motor.sintomas');
-	Route::get('/Medicamentos','MotorController@showMedicamentos')->name('motor.medicamentos');
+	Route::get('/Sintomas/{back}','MotorController@showSintomas')->name('motor.sintomas');
+	Route::get('/Medicamentos/{back}','MotorController@showMedicamentos')->name('motor.medicamentos');
 });
 
 Route::prefix('hechos')->group(function(){
@@ -46,7 +46,8 @@ Route::prefix('hechos')->group(function(){
 
 Route::prefix('reglas')->group(function(){
 	Route::get('/Predisposiciones','MotorController@reglasPredisposiciones')->name('reglas.predisposiciones');
-	Route::get('/Sintomas','MotorController@reglasSintomas')->name('reglas.sintomas');
+	Route::get('/Sintomas/{id}','MotorController@reglasSintomas')->name('reglas.sintomas');
 	Route::get('/Medicamentos/{id}','MotorController@reglasMedicamentos')->name('reglas.medicamentos');
-	Route::get('/Elementos','MotorController@reglasElementos')->name('reglas.elementos');
+	Route::get('/Elementos/{id}','MotorController@reglasElementos')->name('reglas.elementos');
 });
+

@@ -37,7 +37,7 @@ class InicioController extends Controller
             $diag->user_id=$id;
             $diag->save();
         }
-        return redirect()->route('motor.medicamentos');
+        return redirect()->route('motor.medicamentos', ['back'=>0]);
     }
 
 }
