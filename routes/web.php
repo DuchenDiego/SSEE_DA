@@ -51,6 +51,6 @@ Route::prefix('reglas')->group(function(){
 	Route::get('/Medicamentos/{id}','MotorController@reglasMedicamentos')->name('reglas.medicamentos');
 	Route::get('/Elementos/{id}','MotorController@reglasElementos')->name('reglas.elementos');
 
-	Route::get('/indicador/{id}', 'MotorController@indicador')->name('reglas.indicador');
+	Route::get('/indicador/{valor}', 'MotorController@indicador')->name('reglas.indicador');
 });
 

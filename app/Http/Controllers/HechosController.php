@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use App\Medicinfluyente;
 use App\Criterio;
 use App\Hecho;
+use App\Predisposicion;
 use App\Diagnostico;
 use App\Sintoma;
 use Auth;
@@ -63,6 +64,34 @@ class HechosController extends Controller
         if(($sichecked==true && $nochecked==true)||($sichecked==false && $nochecked==false)){
             $sint=Sintoma::where('id','=',$request->sintid)->first();
             return view("criterios/sintomas/".$sint->name)->with("sintid",$sint->id);
+        }
+    }
+
+    public function hechosPredisposiciones(){
+        $id=Auth::user()->id;
+        $ultdiag=Diagnostico::where('user_id','=',$id)->max('numero');
+        $diag=Diagnostico::where('user_id','=',$id)->where('numero','=',$ultdiag)->first();
+        $cripred=Criterio::where('predis_id','=',$request->predid)->first();
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+
+        if($sichecked==true){
+            $hechopred=Hecho::updateOrCreate(
+                ['user_id'=>$id, 'numPremisa'=>$cripred->premis_id,'diag_id'=>$diag->id, 'predis_id'=>$request->predid],
+                ['estado'=>1]
+            );
+           return redirect()->route('reglas.indicador',['valor'=>2]);
+        }
+        if($nochecked==true){
+            $hechosint=Hecho::updateOrCreate(
+                ['user_id'=>$id,'numPremisa'=>$cripred->premis_id,'diag_id'=>$diag->id, 'predis_id'=>$request->predid],
+                ['estado'=>0]
+            );
+            return redirect()->route('reglas.indicador',['valor'=>0]);
+        }
+        if(($sichecked==true && $nochecked==true)||($sichecked==false && $nochecked==false)){
+            $pred=Predisposicion::where('id','=',$request->predid)->first();
+            return view("criterios/sintomas/".$sint->name)->with("predid",$pred->id);
         }
     }
 }

@@ -84,6 +84,19 @@ class MotorController extends Controller
 
     public function showPredisposiciones(){
     	$predisposiciones=Predisposicion::all();
+
+        $idusr=Auth::user()->id;
+        $ultdiag=Diagnostico::max('numero');
+        $diag=Diagnostico::where('user_id','=',$idusr)->where('numero','=',$ultdiag)->first();
+
+        foreach ($predisposiciones as $predis){
+            $hechopredis=Hecho::where("predis_id","=",$campos["id"])->where("diag_id","=",$diag->id)->first();
+            if($hechopredis==false){
+                return view("criterios/predisposiciones/".$predis["name"])->with("predid",$predis["id"]);
+            }
+        }      
+
+        return redirect()->route('motor.resultado');
     }
 
     public function reglasMedicamentos($id){
@@ -228,7 +241,5 @@ class MotorController extends Controller
         return redirect()->route('motor.sintomas', ['back'=>0]);
     }
 
-    public function reglasPrediposiciones($id){
-        
-    }
+    
 }
