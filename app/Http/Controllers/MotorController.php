@@ -12,6 +12,7 @@ use App\Predisposicion;
 use App\Elemento;
 use App\Sintoma;
 use Auth;
+use Session;
 
 use App\Hecho;
 
@@ -34,7 +35,7 @@ class MotorController extends Controller
             return view("criterios/medicinas/".$ultmedic->name)->with("medid",$ultmedic->id);
         }
         if($back==0){
-          foreach ($medicamentos as $campos){
+            foreach ($medicamentos as $campos){
                 $hechomedic=Hecho::where("medic_id","=",$campos["id"])->where("diag_id","=",$diag->id)->first();
                 if($hechomedic==false){
                     return view("criterios/medicinas/".$campos["name"])->with("medid",$campos["id"]);
@@ -54,12 +55,22 @@ class MotorController extends Controller
         $diag=Diagnostico::where('user_id','=',$id)->where('numero','=',$ultdiag)->first();
 
         if($back==1){
+             //para borrado de registro de valor de elemento if back
+            $finelemento=Session::get('finelemento');
+            $valorback=Session::get('valorback');
+            if($finelemento==1){
+                Session::put('backelemento',1);
+                return redirect()->route('reglas.indicador', ['valor'=>$valorback]);
+            }
+
             $idult=Hecho::where("diag_id","=",$diag->id)->where('numPremisa','>',15)->max('sinto_id');
             $ultsinto=Sintoma::where("id","=",$idult)->first();
             if($ultsinto==true){
                return view("criterios/sintomas/".$ultsinto->name)->with("sintid",$ultsinto->id); 
             }
         }
+
+        //Session::put('finelemento',0);//Confirmacion de fin de elemento nula
 
         foreach($sintomas as $campos){
                 $hechosint=Hecho::where("sinto_id","=",$campos["id"])->where("diag_id","=",$diag->id)->first();
@@ -172,6 +183,10 @@ class MotorController extends Controller
                             ['user_id'=>$idusr,'diag_id'=>$diag->id, 'elem_id'=>$ele["elem_id"]],
                             ['estado'=>$ele["valor"],'numPremisa'=>$ele["premis_id"]]
                         );
+                        Session::put('valorback',$ele["valor"]);//en caso de retroceder en un registro de elemento
+                        Session::put('finelemento',1);//confirmacion de ultimo sintoma de elemento
+                        Session::put('backelemento',0);
+                        return redirect()->route('reglas.indicador',['valor'=>$ele["valor"]]);
                         break;
                     }
                     $verificar=array();
@@ -181,7 +196,39 @@ class MotorController extends Controller
         return redirect()->route('motor.sintomas', ['back'=>0]);
     }
 
-    public function reglasPrediposiciones($id){
+    public function indicador($valor){
+        $idusr=Auth::user()->id;
+        $ultdiag=Diagnostico::max('numero');
+        $diag=Diagnostico::where('user_id','=',$idusr)->where('numero','=',$ultdiag)->first();
 
+        $backelemento=Session::get('backelemento');
+        if($backelemento==1){
+            $diag->indicador=$diag->indicador-$valor;
+            $diag->save();
+            Session::put('finelemento',0);
+            return redirect()->route('motor.sintomas', ['back'=>1]);
+        }
+        if($backelemento==0){
+            $diag->indicador=$diag->indicador+$valor;
+            $diag->save();
+        }
+
+        if($diag->indicador>=0 && $diag->indicador<6){
+            $diag->resultado="Sin Ansiedad";
+            $diag->save();
+        }else if($diag->indicador>=6 && $diag->indicador<15){
+            $diag->resultado="Ansiedad Menor";
+            $diag->save();
+        }else if($diag->indicador>=15){ 
+            $diag->resultado="Síndrome Ansioso";
+            $diag->save();
+            return redirect()->route('motor.crittras');
+        }
+        Session::put('backelemento',0);
+        return redirect()->route('motor.sintomas', ['back'=>0]);
+    }
+
+    public function reglasPrediposiciones($id){
+        
     }
 }

@@ -20,6 +20,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+
 Route::prefix('personal')->group(function(){
 	Route::get('/login','Auth\PersonalLoginController@showLoginForm')->name('personal.login');
 	Route::post('/login','Auth\PersonalLoginController@login')->name('personal.login.submit');
@@ -49,5 +50,7 @@ Route::prefix('reglas')->group(function(){
 	Route::get('/Sintomas/{id}','MotorController@reglasSintomas')->name('reglas.sintomas');
 	Route::get('/Medicamentos/{id}','MotorController@reglasMedicamentos')->name('reglas.medicamentos');
 	Route::get('/Elementos/{id}','MotorController@reglasElementos')->name('reglas.elementos');
+
+	Route::get('/indicador/{id}', 'MotorController@indicador')->name('reglas.indicador');
 });
 
