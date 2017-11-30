@@ -10,6 +10,7 @@ use App\Hecho;
 use App\Predisposicion;
 use App\Diagnostico;
 use App\Sintoma;
+use App\SintomaTrastorno;
 use Auth;
 class HechosController extends Controller
 {
@@ -67,7 +68,7 @@ class HechosController extends Controller
         }
     }
 
-    public function hechosPredisposiciones(){
+    public function hechosPredisposiciones(Request $request){
         $id=Auth::user()->id;
         $ultdiag=Diagnostico::where('user_id','=',$id)->max('numero');
         $diag=Diagnostico::where('user_id','=',$id)->where('numero','=',$ultdiag)->first();
@@ -83,7 +84,7 @@ class HechosController extends Controller
            return redirect()->route('reglas.indicador',['valor'=>2]);
         }
         if($nochecked==true){
-            $hechosint=Hecho::updateOrCreate(
+            $hechospred=Hecho::updateOrCreate(
                 ['user_id'=>$id,'numPremisa'=>$cripred->premis_id,'diag_id'=>$diag->id, 'predis_id'=>$request->predid],
                 ['estado'=>0]
             );
@@ -91,7 +92,36 @@ class HechosController extends Controller
         }
         if(($sichecked==true && $nochecked==true)||($sichecked==false && $nochecked==false)){
             $pred=Predisposicion::where('id','=',$request->predid)->first();
-            return view("criterios/sintomas/".$sint->name)->with("predid",$pred->id);
+            return view("criterios/predisposiciones/".$pred->name)->with("predid",$pred->id);
+        }
+    }
+
+    public function hechosSintomasTrastornos(Request $request){
+        //fake(hc)
+        $id=Auth::user()->id;
+        $ultdiag=Diagnostico::where('user_id','=',$id)->max('numero');
+        $diag=Diagnostico::where('user_id','=',$id)->where('numero','=',$ultdiag)->first();
+
+        $sichecked=Input::has('si');
+        $nochecked=Input::has('no');
+
+         if($sichecked==true){
+            $hechosinttras=Hecho::updateOrCreate(
+                ['user_id'=>$id, 'numPremisa'=>204,'diag_id'=>$diag->id, 'sinttras_id'=>$request->sinttrasid],
+                ['estado'=>1]
+            );
+           return redirect()->route('reglas.sintomastrastornos',['id'=>$request->sinttrasid]);
+        }
+        if($nochecked==true){
+            $hechosinttras=Hecho::updateOrCreate(
+                ['user_id'=>$id,'numPremisa'=>204,'diag_id'=>$diag->id, 'sinttras_id'=>$request->sinttrasid],
+                ['estado'=>0]
+            );
+            return redirect()->route('reglas.sintomastrastornos',['id'=>$request->sinttrasid]);
+        }
+        if(($sichecked==true && $nochecked==true)||($sichecked==false && $nochecked==false)){
+            $sinttras=SintomaTrastorno::where('id','=',$request->sinttrasid)->first();
+            return view("criterios/sintomastrastornos/".$sinttras->name)->with("sinttrasid",$sinttras->id);
         }
     }
 }

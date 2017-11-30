@@ -23,12 +23,14 @@ class CreatePHechosTable extends Migration
             $table->integer('elem_id')->unsigned()->nullable($value = true);
             $table->integer('sinto_id')->unsigned()->nullable($value = true);
             $table->integer('medic_id')->unsigned()->nullable($value = true);
+            $table->integer('sinttras_id')->unsigned()->nullable($value = true);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('diag_id')->references('id')->on('diagnosticos')->onDelete('cascade');
             $table->foreign('predis_id')->references('id')->on('predisposiciones')->onDelete('cascade');
             $table->foreign('elem_id')->references('id')->on('elementos')->onDelete('cascade');
             $table->foreign('sinto_id')->references('id')->on('sintomas')->onDelete('cascade');
             $table->foreign('medic_id')->references('id')->on('medicinfluyentes')->onDelete('cascade');
+            $table->foreign('sinttras_id')->references('id')->on('sintomastrastorno')->onDelete('cascade');
             $table->timestamps();
         });
     }

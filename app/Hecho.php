@@ -8,7 +8,7 @@ class Hecho extends Model
 {
     protected $table="p_hechos";
 
-    protected $fillable=["numPremisa","estado","user_id","diag_id","predis_id","elem_id","sinto_id","medic_id"];
+    protected $fillable=["numPremisa","estado","user_id","diag_id","predis_id","elem_id","sinto_id","medic_id","sinttras_id"];
 
     public function predisposicion(){
     	return $this->belongsTo("App\Predisposicion","predis_id");
@@ -20,6 +20,10 @@ class Hecho extends Model
 
     public function sintoma(){
     	return $this->belongsTo("App\Sintoma","sinto_id");
+    }
+
+    public function sintomatrastorno(){
+        return $this->belongsTo("App\SintomaTrastorno","sinttras_id");
     }
 
     public function medicinfluyente(){

@@ -1,5 +1,5 @@
 @section('content')  
    @extends('criterios/sintomas/template_sin/contentsin')
-   @section('pregunta','Tiene la sensación de estar débil o cansado a lo largo del día?')
+   @section('pregunta','Tiende a sudar frecuentemente?')
 @endsection
 @extends('layouts.app')

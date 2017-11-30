@@ -18,7 +18,7 @@ class CreateDiagnosticosTable extends Migration
             $table->integer('numero');
             $table->integer('indicador')->unsigned();
             $table->string('resultado');
-            $table->enum('tipotrastorno',['NA','TAG','TOC','TP','TAS'])->default('NA');
+            $table->enum('tipotrastorno',['NA','Indefinido','TAG','TOC','TP','TAS'])->default('NA');
             $table->date('fecha');
             $table->string('hora');
             $table->integer('user_id')->unsigned();

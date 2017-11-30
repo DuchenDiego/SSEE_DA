@@ -12,14 +12,14 @@
               </article>
             </div>
             <div class="row">
-             <div class="panel-info">
-               <div class="panel-heading">Predisposiciones<span class="glyphicon glyphicon-certificate"></span></div>
+             <div class="panel-danger">
+               <div class="panel-heading">Sintomas <span class="glyphicon glyphicon-eye-open"></span></div>
                <br><br>
                <div class="panel-body">
                    <div class="col-md-12 col-lg-12 ">
                      <div class="form-group">
-                        <form action="{{ route('hechos.predisposiciones')}}" method="POST">
-                        <input type="hidden" name="predid" value="{{ $predid }}">
+                        <form action="{{ route('hechos.sintomastrastornos')}}" method="POST">
+                        <input type="hidden" name="sinttrasid" value="{{ $sinttrasid }}">
                         <div class="row">
                           <div class="col-md-9 col-lg-9 ">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
