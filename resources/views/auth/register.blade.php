@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('opciones')
+<li><a href="{{ route('login') }}">Login Estudiantes</a></li>
+@endsection
 @section('content')
 <div class="container">
     <div class="row">
@@ -59,10 +61,10 @@
                             <div class="col-md-6">
 
                                 <select name="carrera" class="form-control">
-                                  <option value="Ing. de Sistemas">Ing. de Sistemas</option>
-                                  <option value="Ing. Electónica">Ing. Electónica</option>
-                                  <option value="Ing. de Telecomunicaciones">Ing. de Telecomunicaciones</option>
-                                  <option value="Ing. Industrial">Ing. Industrial</option>
+                                  <option value="Sistemas">Ing. de Sistemas</option>
+                                  <option value="Electrónica">Ing. Electrónica</option>
+                                  <option value="Telecomunicaciones">Ing. de Telecomunicaciones</option>
+                                  <option value="Industrial">Ing. Industrial</option>
                                 </select>
 
                                 @if ($errors->has('carrera'))
@@ -103,8 +105,7 @@
                             <label for="fechanac" class="col-md-4 control-label">Fecha de Nacimiento</label>
 
                             <div class="col-md-6">
-                                <input id="fechanac" type="text" class="form-control" value="{{ old('fechanac') }}" required>
-
+                                <input id="fechanac" type="text" class="form-control" name="fechanac" value="{{ old('fechanac') }}" required autofocus>
                                 @if ($errors->has('fechanac'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('fechanac') }}</strong>

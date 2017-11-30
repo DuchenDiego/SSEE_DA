@@ -19,7 +19,7 @@
         </div>
         <br><br><br>
         <div class="row">
-          <a href="#" class="btn btn-warning btn-lg btn-block">Historial <span class="glyphicon glyphicon-th-list"></span></a>
+          <a href="{{ route('historial') }}" class="btn btn-warning btn-lg btn-block">Historial <span class="glyphicon glyphicon-th-list"></span></a>
         </div>
       </div>
     </div>

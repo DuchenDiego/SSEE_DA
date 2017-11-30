@@ -31,10 +31,12 @@ class PersonalLoginController extends Controller
 
     	//si lo logra redireccionar a la debida ruta
     	{
-    		return redirect()->intended(route('personal.dashboard'));
-    	}
+    		return redirect()->route('personal.dashboard');
+    	}else{
+            return redirect()->route('personal.login');
+        }
     	//si no lo logra se redirecciona al login respectivo
-    	return redirect()->back()->withInput($request->only('name','remember'));
+    	//return redirect()->back()->withInput($request->only('name','remember'));
     	//return true;
     }
 }

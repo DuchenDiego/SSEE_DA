@@ -25,6 +25,12 @@ Route::prefix('personal')->group(function(){
 	Route::get('/login','Auth\PersonalLoginController@showLoginForm')->name('personal.login');
 	Route::post('/login','Auth\PersonalLoginController@login')->name('personal.login.submit');
 	Route::get('/', 'PersonalController@index')->name('personal.dashboard');
+
+	Route::post('/busqueda', 'ResultadoController@busqueda')->name('busqueda');
+
+	Route::post('/ordenar', 'ResultadoController@ordenar')->name('ordenar');
+
+	Route::get('/detalle/{iddiag}', 'ResultadoController@detallepers')->name('detallepers');
 });
 
 Route::prefix('inicio')->group(function(){
@@ -62,5 +68,7 @@ Route::prefix('reglas')->group(function(){
 Route::prefix('resultado')->group(function(){
 	Route::get('/', 'ResultadoController@resultado')->name('resultado');
 	Route::get('/detalle/{iddiag}', 'ResultadoController@detalle')->name('detalle');
+	Route::get('/historial', 'ResultadoController@historial')->name('historial');
+
 });
 
